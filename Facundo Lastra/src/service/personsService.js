@@ -1,10 +1,4 @@
-function repareIdsForArray(oldId, arrayToFix){
-  let start = oldId;
-  for (start; start <= arrayToFix.length; start++ ){
-    arrayToFix[start].id--;
-  }
-  return arrayToFix;
-}
+
 function getValidId(array){
   let initialValue = 0;
     for (let element of array) {
@@ -35,15 +29,9 @@ export default {
     editPerson (person){
       let people = this.getAll();
       let personToEdit = people.find(personInArray => personInArray.id === person.id);
-      people[personToEdit.id] = person;
+      let idElement = people.indexOf(personToEdit);
+      people[idElement] = person;
       this.saveAll(people);
-    },
-    delete(persontoDelete){
-      let oldId= persontoDelete.id;
-      let persons = this.getAll();
-      persons.splice(persontoDelete.id,1);
-      let newArray = repareIdsForArray(oldId,persons);
-      this.saveAll(newArray);
     },
     save(personToSave) {
       if(personToSave.nombre &&

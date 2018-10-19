@@ -51,8 +51,8 @@ export default {
     };
   },
   beforeMount: function() {
-    if (this.$route.params.id) {
-        personsService.getOne(this.$router.params.id)
+    if (this.$route.params.id !== undefined) {
+        personsService.getOne(this.$route.params.id)
         .then((person) => {
           this.persona.nombre = person.nombre;
           this.persona.sexo = person.sexo;
@@ -92,12 +92,10 @@ export default {
         if (!this.editMod) {
           personsService.save(copy);
         } else {
-          let personToEdit = personsService.getOne(this.$router.params.id);
-          personToEdit.nombre = this.persona.nombre;
-          personToEdit.edad = this.persona.edad;
-          personToEdit.sexo = this.persona.sexo;
-          personsService.editPerson(personToEdit);
+          copy.id = this.$route.params.id;
+          personsService.editPerson(copy);
           this.editMod = false;
+          
         }
       }
       this.persona.nombre = "";

@@ -15,9 +15,7 @@ export default {
       this.$emit('edit',persontoSend.id);
     },
     deletePerson(){
-      debugger
-      let persontoSend = this.person;
-      this.$emit('delete',persontoSend.id);
+      this.$emit('delete',this.person.id);
     },
   }
 };

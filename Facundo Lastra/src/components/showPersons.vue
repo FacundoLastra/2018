@@ -43,7 +43,6 @@ export default {
           (persona) => persona.sexo === this.filtro
         );
       }
-      debugger
       return personsfiltred;
     }
   },
@@ -51,10 +50,10 @@ export default {
     editPerson(idPerson){
       router.push({ name: 'edit', params: { id: idPerson }});
     },
-    deletePerson(idPerson){
-      
-      let personToDelete = this.persons.find( (p) => p.id === idPerson);
-      this.persons.splice(personToDelete.id,1);
+    deletePerson(personId){
+      let persontoDelete = this.persons.find(per => per.id === personId);
+      let ind = this.persons.indexOf(persontoDelete);
+      this.persons.splice(ind,1);
       personsService.saveAll(this.persons);
     }
   }
