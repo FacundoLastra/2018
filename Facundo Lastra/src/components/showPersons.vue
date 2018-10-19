@@ -1,34 +1,61 @@
 <template>
     <section>
+          <h2>¿Como desea visualizar?</h2>
+        <select @change="getPersons" name="options" v-model="filtro">
+            <option value="todos" selected>Todos</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+            <option value="Otro">Otro</option>
+        </select>
         <ul>
-            <li v-for="persona in persons" :key="persona.id">
-                <singlePerson :person="persona"></singlePerson>
-                <button @click="deletePerson(persona)">delete</button>
-                <button @click="editPerson(persona)">edit</button>
+            <li v-for="persona in this.getPersons" :key="persona.id">
+                <singlePerson :person="persona" :id="persona.id" @edit="editPerson" @delete="deletePerson"></singlePerson>
             </li>
         </ul>
-        <h3>Hay {{persons.length}} persona/s</h3>
+        <h3>Hay {{getPersons.length}} persona/s</h3>
     </section>
 </template>
 <script>
 import singlePerson from "./singlePerson.vue";
-
+import router from "@/router";
+import personsService from "@/service/personsService.js";
 export default {
   name: "showPersons",
-  props: ["persons"],
+   data() {
+    return {
+      filtro: "todos",
+      persons: []
+    };
+  },
   components: {
     singlePerson
   },
+  created() {
+    this.persons = personsService.getAll();
+  },
+  computed: {
+    getPersons: function() {
+      let personsfiltred;
+      if (this.filtro == "todos") {
+        personsfiltred = this.persons;
+      } else {
+        personsfiltred = this.persons.filter(
+          (persona) => persona.sexo === this.filtro
+        );
+      }
+      debugger
+      return personsfiltred;
+    }
+  },
   methods: {
-    deletePerson(person) {
-      if (person) {
-        this.$emit("deletePerson", person);
-      }
+    editPerson(idPerson){
+      router.push({ name: 'edit', params: { id: idPerson }});
     },
-    editPerson(person) {
-      if (person) {
-        this.$emit("editPersonStep1", person);
-      }
+    deletePerson(idPerson){
+      
+      let personToDelete = this.persons.find( (p) => p.id === idPerson);
+      this.persons.splice(personToDelete.id,1);
+      personsService.saveAll(this.persons);
     }
   }
 };

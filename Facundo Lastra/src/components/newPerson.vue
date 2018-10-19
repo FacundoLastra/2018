@@ -34,6 +34,8 @@
     
 </template>
 <script>
+import router from "@/router";
+import personsService from "@/service/personsService.js";
 export default {
   name: "NewPerson",
   data() {
@@ -41,19 +43,22 @@ export default {
       persona: {
         nombre: "",
         sexo: "",
-        edad: 0
+        edad: 0,
+        id:0
       },
       errors: [],
       editMod: false
     };
   },
-  props: ["personToModify"],
   beforeMount: function() {
-    if (this.personToModify && this.editMod == false) {
-      this.persona.nombre = this.personToModify.nombre;
-      this.persona.sexo = this.personToModify.sexo;
-      this.persona.edad = this.personToModify.edad;
-      this.editMod = true;
+    if (this.$route.params.id) {
+        personsService.getOne(this.$router.params.id)
+        .then((person) => {
+          this.persona.nombre = person.nombre;
+          this.persona.sexo = person.sexo;
+          this.persona.edad = person.edad;
+          this.editMod = true;
+        });         
     }
   },
   methods: {
@@ -85,15 +90,20 @@ export default {
       if (this.validarForm()) {
         let copy = Object.assign({}, this.persona);
         if (!this.editMod) {
-          this.$emit("agregarPersona", copy);
+          personsService.save(copy);
         } else {
-          this.$emit("editPersonLastEmit", copy);
+          let personToEdit = personsService.getOne(this.$router.params.id);
+          personToEdit.nombre = this.persona.nombre;
+          personToEdit.edad = this.persona.edad;
+          personToEdit.sexo = this.persona.sexo;
+          personsService.editPerson(personToEdit);
           this.editMod = false;
         }
       }
       this.persona.nombre = "";
       this.persona.sexo = "";
       this.persona.edad = 0;
+      router.push("/");
     }
   }
 };
