@@ -27,7 +27,7 @@
           </el-col>   
       </el-row>
         <el-row>        
-          <el-col :span="8" :offset="9">
+          <el-col :span="8" :offset="8">
             <div v-for="persona in this.getPersons" :key="persona.id" class="grid-content bg-purple-light">
                 <singlePerson :person="persona" :id="persona.id" @edit="editPerson" @delete="deletePerson"></singlePerson>
             </div>
