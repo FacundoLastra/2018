@@ -2,6 +2,7 @@
 
 Tienen tiempo hasta el viernes 19 de octubre a las 21Hs para terminar el trabajo.
 
+<<<<<<< HEAD
 Partiendo del trabajo anterior donde se componentizó el listado de personas, deben refactorizar la app para que utilice el router de Vue. El sistema debe permitir al usuario crear, editar, listar y borrar personas, además de filtrar como lo veníamos haciendo por sexo. El listado de personas debe ser persistido de manera que al cerrar y abrir el navegador los datos sigan estando disponibles y debe tener las vistas y componentes que consideren necesarias para realizar la tarea. Como base pueden utilizar el proyecto `2018-10-12.Servicios` que se subió al Drive compartido. 
 
 ### Lineamientos básicos
@@ -17,3 +18,12 @@ Partiendo del trabajo anterior donde se componentizó el listado de personas, de
 - El canal de Slack está para que todos nos saquemos las dudas, pregunten las veces que sea necesario.
 - Utilicen el medio de persistencia que utilicen, la key para guardar debe ser `people`. Ej: `localStorage.setItem('people', /* un objeto stringifeado*/)`.
 - Pueden agregar toda la funcionalidad que consideren necesaria, no tienen que limitarse a lo que dice este trabajo.
+=======
+### Para el TP #3 revisar la rama [tp3](https://github.com/FRMDP/2018/tree/tp3)
+
+### Para el TP #4 revisar la rama [tp4](https://github.com/FRMDP/2018/tree/tp4)
+
+### Para el TP #5 revisar la rama [tp5](https://github.com/FRMDP/2018/tree/tp5)
+
+### Para el TP #6 revisar la rama [tp6](https://github.com/FRMDP/2018/tree/tp6)
+>>>>>>> c7bd8ee8031f3828c6ff4a0ac4f1c66147e4c89f
