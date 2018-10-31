@@ -1,18 +1,39 @@
 <template>
     <section>
+      <el-row>
+        <el-col :span="8" :offset="8">
           <h2>¿Como desea visualizar?</h2>
-        <select @change="getPersons" name="options" v-model="filtro">
-            <option value="todos" selected>Todos</option>
-            <option value="Masculino">Masculino</option>
-            <option value="Femenino">Femenino</option>
-            <option value="Otro">Otro</option>
-        </select>
-        <ul>
-            <li v-for="persona in this.getPersons" :key="persona.id">
+        <el-select v-model="filtro" placeholder="Todos" @change="getPersons">
+          <el-option
+            :label="'Todos'"
+            :value="'todos'">
+          </el-option>
+          <el-option
+            :label="'Masculino'"
+            :value="'Masculino'">
+          </el-option>
+          <el-option
+            :label="'Femenino'"
+            :value="'Femenino'">
+          </el-option>
+          <el-option
+            :label="'Otro'"
+            :value="'Otro'">
+          </el-option>
+        </el-select>
+        </el-col>
+        <el-col :span="8">
+            <h3>Hay {{getPersons.length}} persona/s</h3>
+          </el-col>   
+      </el-row>
+        <el-row>        
+          <el-col :span="8" :offset="9">
+            <div v-for="persona in this.getPersons" :key="persona.id" class="grid-content bg-purple-light">
                 <singlePerson :person="persona" :id="persona.id" @edit="editPerson" @delete="deletePerson"></singlePerson>
-            </li>
-        </ul>
-        <h3>Hay {{getPersons.length}} persona/s</h3>
+            </div>
+            </el-col>
+        </el-row>
+        
     </section>
 </template>
 <script>
